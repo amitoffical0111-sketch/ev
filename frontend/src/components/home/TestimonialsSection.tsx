@@ -19,16 +19,18 @@ export default function TestimonialsSection({ testimonials }: Props) {
   const items = testimonials.length > 0 ? testimonials : defaultTestimonials;
 
   return (
-    <section className="section bg-gradient-to-br from-[#f8fff0] to-white">
+    <section className="section bg-gradient-to-br from-[#f6fef0] to-white">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <p className="text-[#5FAF00] font-bold text-sm uppercase tracking-wider mb-2">Customer Reviews</p>
-          <h2 className="text-3xl md:text-4xl font-black text-[#111]">What Our <span className="text-[#5FAF00]">Riders Say</span></h2>
+          <p className="section-label justify-center">Customer Reviews</p>
+          <h2 className="text-3xl md:text-[2.4rem] font-black text-[#111] leading-tight">
+            What Our <span className="text-[#5FAF00]">Riders Say</span>
+          </h2>
         </div>
 
         <Swiper
           modules={[Autoplay, Pagination]}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          autoplay={{ delay: 4500, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           spaceBetween={20}
           breakpoints={{
@@ -36,24 +38,38 @@ export default function TestimonialsSection({ testimonials }: Props) {
             768: { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
           }}
-          className="pb-12">
+          className="pb-12"
+        >
           {items.map((t) => (
             <SwiperSlide key={t._id}>
-              <div className="card-premium p-6 h-full">
-                <FaQuoteLeft className="text-[#5FAF00] opacity-30 mb-3" size={28} />
-                <div className="flex mb-3">
+              <div className="card-premium p-6 h-full flex flex-col">
+                {/* Quote icon */}
+                <div className="w-10 h-10 bg-[#f0f9e8] rounded-xl flex items-center justify-center mb-4 flex-shrink-0">
+                  <FaQuoteLeft className="text-[#5FAF00]" size={16} />
+                </div>
+
+                {/* Stars */}
+                <div className="flex gap-0.5 mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} size={14} className={i < t.rating ? 'text-yellow-400' : 'text-gray-200'} />
+                    <FaStar
+                      key={i}
+                      size={13}
+                      className={i < t.rating ? 'text-amber-400' : 'text-gray-200'}
+                    />
                   ))}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">{t.review}</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#5FAF00] rounded-full flex items-center justify-center text-white font-bold text-sm">
+
+                {/* Review */}
+                <p className="text-gray-600 text-[14px] leading-relaxed mb-5 line-clamp-3 flex-1">{t.review}</p>
+
+                {/* Author */}
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#5FAF00] to-[#1F7A00] rounded-full flex items-center justify-center text-white font-bold text-[14px] flex-shrink-0 shadow-sm">
                     {t.name.charAt(0)}
                   </div>
                   <div>
-                    <div className="font-bold text-sm text-[#111]">{t.name}</div>
-                    {t.location && <div className="text-xs text-gray-400">{t.location}</div>}
+                    <div className="font-bold text-[14px] text-[#111] leading-tight">{t.name}</div>
+                    {t.location && <div className="text-[12px] text-gray-400 mt-0.5">{t.location}</div>}
                   </div>
                 </div>
               </div>

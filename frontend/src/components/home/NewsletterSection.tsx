@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { FiMail, FiSend } from 'react-icons/fi';
+import { FiMail, FiSend, FiCheck } from 'react-icons/fi';
 import api from '@/lib/api';
 
 export default function NewsletterSection() {
@@ -21,33 +21,48 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="section-sm bg-gradient-to-r from-[#1F7A00] to-[#5FAF00]">
-      <div className="container-custom">
-        <div className="text-center max-w-2xl mx-auto">
-          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <FiMail size={28} className="text-white" />
+    <section className="section-sm bg-gradient-to-r from-[#1a6800] via-[#5FAF00] to-[#4a9400] relative overflow-hidden">
+      {/* Subtle background decoration */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/5 rounded-full blur-3xl pointer-events-none translate-y-1/2 -translate-x-1/3" />
+
+      <div className="container-custom relative">
+        <div className="text-center max-w-xl mx-auto">
+          <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-5 border border-white/30">
+            <FiMail size={24} className="text-white" strokeWidth={2} />
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-3">Stay in the Loop</h2>
-          <p className="text-white/80 mb-8">
-            Subscribe to our newsletter for the latest EV news, product launches, exclusive offers, and riding tips.
+          <h2 className="text-[2rem] md:text-[2.4rem] font-black text-white mb-3 leading-tight">Stay in the Loop</h2>
+          <p className="text-white/75 mb-8 text-[15px] leading-relaxed">
+            Subscribe for the latest EV news, product launches, exclusive offers, and riding tips.
           </p>
 
           {status === 'success' ? (
-            <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-4 text-white font-semibold">
-              ✓ Thank you for subscribing! You'll hear from us soon.
+            <div className="inline-flex items-center gap-2.5 bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-4 text-white font-semibold border border-white/30">
+              <div className="w-6 h-6 bg-white/30 rounded-full flex items-center justify-center">
+                <FiCheck size={14} strokeWidth={3} />
+              </div>
+              Thank you for subscribing!
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address" required
-                className="flex-1 px-5 py-3.5 rounded-xl bg-white text-[#111] placeholder-gray-400 focus:outline-none text-sm font-medium" />
-              <button type="submit" disabled={status === 'loading'}
-                className="flex items-center justify-center gap-2 px-6 py-3.5 bg-[#111] text-white rounded-xl font-bold text-sm hover:bg-black transition-colors disabled:opacity-70">
-                {status === 'loading' ? 'Subscribing...' : <><FiSend size={16} /> Subscribe</>}
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                required
+                className="flex-1 px-5 py-3.5 rounded-xl bg-white text-[#111] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50 text-[14px] font-medium shadow-sm"
+              />
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0d0d0d] hover:bg-black text-white rounded-xl font-bold text-[14px] transition-all hover:shadow-lg disabled:opacity-70 flex-shrink-0"
+              >
+                {status === 'loading' ? 'Subscribing...' : <><FiSend size={14} /> Subscribe</>}
               </button>
             </form>
           )}
-          <p className="text-white/60 text-xs mt-4">No spam. Unsubscribe anytime.</p>
+          <p className="text-white/50 text-[12px] mt-4">No spam. Unsubscribe anytime.</p>
         </div>
       </div>
     </section>

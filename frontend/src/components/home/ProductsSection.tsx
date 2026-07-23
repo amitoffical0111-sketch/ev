@@ -47,7 +47,6 @@ export default function ProductsSection({ products, categories }: Props) {
   const [activeCategory, setActiveCategory] = useState('all');
 
   const displayProducts = products.length > 0 ? products : DEMO_PRODUCTS;
-
   const filtered = activeCategory === 'all'
     ? displayProducts
     : displayProducts.filter(p => p.category?.slug === activeCategory);
@@ -60,13 +59,13 @@ export default function ProductsSection({ products, categories }: Props) {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
-            <p className="text-[#5FAF00] font-bold text-sm uppercase tracking-wider mb-2">Our Premium Range</p>
-            <h2 className="text-3xl md:text-4xl font-black text-[#111]">
+            <p className="section-label">Our Premium Range</p>
+            <h2 className="text-3xl md:text-[2.4rem] font-black text-[#111] leading-tight">
               Electric Scooters for <span className="text-[#5FAF00]">Every Ride</span>
             </h2>
           </div>
-          <Link href="/products" className="btn-outline text-sm self-start md:self-auto">
-            View All Products <FiArrowRight />
+          <Link href="/products" className="btn-outline text-[13px] self-start md:self-auto">
+            View All Products <FiArrowRight size={14} />
           </Link>
         </div>
 
@@ -75,13 +74,14 @@ export default function ProductsSection({ products, categories }: Props) {
           {allCategories.map((cat) => (
             <motion.button
               key={cat._id}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setActiveCategory(cat.slug)}
-              className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+              className={`flex-shrink-0 px-4 py-2 rounded-xl text-[13px] font-semibold transition-all ${
                 activeCategory === cat.slug
-                  ? 'bg-[#5FAF00] text-white shadow-md'
-                  : 'bg-white border border-[#EAEAEA] text-[#111] hover:border-[#5FAF00] hover:text-[#5FAF00]'
-              }`}>
+                  ? 'bg-[#5FAF00] text-white shadow-[0_4px_16px_rgba(95,175,0,0.35)]'
+                  : 'bg-white border border-gray-200 text-[#444] hover:border-[#5FAF00] hover:text-[#5FAF00] hover:bg-[#f0f9e8]/50'
+              }`}
+            >
               {cat.name}
             </motion.button>
           ))}
@@ -93,23 +93,24 @@ export default function ProductsSection({ products, categories }: Props) {
             modules={[Navigation, Pagination]}
             navigation
             pagination={{ clickable: true }}
-            spaceBetween={20}
+            spaceBetween={16}
             breakpoints={{
-              320: { slidesPerView: 1.2 },
+              320: { slidesPerView: 1.15 },
               480: { slidesPerView: 2 },
               768: { slidesPerView: 3 },
               1024: { slidesPerView: 4 },
             }}
-            className="pb-12">
+            className="pb-12"
+          >
             {filtered.map((product, i) => (
-              <SwiperSlide key={product._id}>
+              <SwiperSlide key={product._id} className="h-auto">
                 <ProductCard product={product} index={i} />
               </SwiperSlide>
             ))}
           </Swiper>
         ) : (
           <div className="text-center py-16 text-gray-400">
-            <p className="text-lg">No products found in this category.</p>
+            <p className="text-[15px]">No products found in this category.</p>
           </div>
         )}
       </div>

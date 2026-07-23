@@ -17,44 +17,66 @@ export default function BlogSection({ blogs = defaultBlogs }: Props) {
   return (
     <section className="section bg-white">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
-            <p className="text-[#5FAF00] font-bold text-sm uppercase tracking-wider mb-2">Latest Updates</p>
-            <h2 className="text-3xl md:text-4xl font-black text-[#111]">
+            <p className="section-label">Latest Updates</p>
+            <h2 className="text-3xl md:text-[2.4rem] font-black text-[#111] leading-tight">
               News & <span className="text-[#5FAF00]">Insights</span>
             </h2>
           </div>
-          <Link href="/blog" className="btn-outline text-sm self-start md:self-auto">
-            View All Posts <FiArrowRight />
+          <Link href="/blog" className="btn-outline text-[13px] self-start md:self-auto">
+            View All Posts <FiArrowRight size={14} />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {items.slice(0, 3).map((blog) => (
-            <article key={blog._id} className="card-premium overflow-hidden group">
-              <div className="relative h-48 bg-gradient-to-br from-[#f0f9e8] to-[#e8f5d0] overflow-hidden">
+            <article key={blog._id} className="card-premium overflow-hidden group flex flex-col">
+              <div className="relative h-48 bg-gradient-to-br from-[#f0f9e8] to-[#e8f5d0] overflow-hidden flex-shrink-0">
                 {blog.image ? (
-                  <Image src={blog.image} alt={blog.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <Image
+                    src={blog.image}
+                    alt={blog.title}
+                    fill
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                  />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-[#5FAF00] opacity-20 text-6xl font-black">EB</div>
+                    <div className="text-[#5FAF00] opacity-15 text-7xl font-black select-none">EB</div>
                   </div>
                 )}
                 {blog.category && (
-                  <span className="absolute top-3 left-3 bg-[#5FAF00] text-white text-xs font-bold px-2 py-1 rounded-lg">
+                  <span className="absolute top-3 left-3 bg-[#5FAF00] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
                     {blog.category}
                   </span>
                 )}
               </div>
-              <div className="p-5">
-                <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                  <span className="flex items-center gap-1"><FiCalendar size={12} /> {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                  <span className="flex items-center gap-1"><FiClock size={12} /> 3 min read</span>
+
+              <div className="p-5 flex flex-col flex-1">
+                <div className="flex items-center gap-3 text-[11px] text-gray-400 mb-3">
+                  <span className="flex items-center gap-1">
+                    <FiCalendar size={11} />
+                    {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </span>
+                  <span className="w-1 h-1 bg-gray-300 rounded-full" />
+                  <span className="flex items-center gap-1">
+                    <FiClock size={11} /> 3 min read
+                  </span>
                 </div>
-                <h3 className="font-bold text-[#111] mb-2 line-clamp-2 group-hover:text-[#5FAF00] transition-colors">{blog.title}</h3>
-                {blog.excerpt && <p className="text-sm text-gray-500 line-clamp-2 mb-4">{blog.excerpt}</p>}
-                <Link href={`/blog/${blog.slug}`} className="inline-flex items-center gap-1 text-sm font-bold text-[#5FAF00] hover:gap-2 transition-all">
-                  Read More <FiArrowRight size={14} />
+
+                <h3 className="font-bold text-[#111] text-[15px] mb-2 line-clamp-2 group-hover:text-[#5FAF00] transition-colors leading-snug flex-1">
+                  {blog.title}
+                </h3>
+
+                {blog.excerpt && (
+                  <p className="text-[13px] text-gray-500 line-clamp-2 mb-4 leading-relaxed">{blog.excerpt}</p>
+                )}
+
+                <Link
+                  href={`/blog/${blog.slug}`}
+                  className="inline-flex items-center gap-1.5 text-[13px] font-bold text-[#5FAF00] hover:gap-2.5 transition-all duration-200 mt-auto"
+                >
+                  Read More <FiArrowRight size={13} />
                 </Link>
               </div>
             </article>
