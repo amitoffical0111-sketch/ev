@@ -75,11 +75,11 @@ export default function Header() {
         }`}
       >
         <div className="container-custom">
-          <div className="flex items-center justify-between h-[68px] gap-4">
+          <div className="relative flex items-center justify-between h-[68px] gap-4 min-w-0">
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors text-[#222] flex-shrink-0"
+              className="md:hidden p-1.5 rounded-xl hover:bg-gray-100 transition-colors text-[#222] flex-shrink-0"
               onClick={() => {
                 setActiveMobileMenu(null);
                 setMobileOpen(true);
@@ -90,13 +90,13 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex-shrink-0 md:left-auto md:static md:translate-x-0">
               <Image
                 src="/logo.png"
                 alt="Real E Bikes"
                 width={180}
                 height={56}
-                className="object-contain h-[52px] w-auto"
+                className="object-contain h-10 max-w-[130px] w-auto md:h-[52px] md:max-w-none"
                 priority
               />
             </Link>
@@ -160,10 +160,10 @@ export default function Header() {
             </nav>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-0.5">
+            <div className="ml-auto flex min-w-0 items-center gap-0 md:ml-0 md:gap-0.5">
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
+                className="p-2 md:p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
                 aria-label="Search"
               >
                 <FiSearch size={19} />
@@ -171,7 +171,7 @@ export default function Header() {
 
               <Link
                 href="/cart"
-                className="relative p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
+                className="relative p-2 md:p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
                 aria-label="Cart"
               >
                 <FiShoppingCart size={19} />
@@ -184,7 +184,7 @@ export default function Header() {
 
               <Link
                 href="/wishlist"
-                className="relative p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
+                className="relative p-2 md:p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
                 aria-label="Wishlist"
               >
                 <FiHeart size={19} />

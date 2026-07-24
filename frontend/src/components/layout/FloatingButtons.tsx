@@ -12,8 +12,9 @@ export default function FloatingButtons() {
     <div
       className="fixed z-40 flex md:hidden flex-col items-end gap-2"
       style={{
-        bottom: 'calc(24px + env(safe-area-inset-bottom))',
-        right: 'calc(20px + env(safe-area-inset-right))',
+        bottom: 'calc(16px + env(safe-area-inset-bottom))',
+        right: 'calc(16px + env(safe-area-inset-right))',
+        maxWidth: 'calc(100vw - 32px)',
       }}
     >
       <AnimatePresence initial={false}>
@@ -23,7 +24,7 @@ export default function FloatingButtons() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.25 }}
-            className="flex items-start gap-2 rounded-xl bg-white px-3 py-2 shadow-[0_4px_18px_rgba(0,0,0,0.14)]"
+            className="flex max-w-full items-start gap-2 rounded-xl bg-white px-3 py-2 shadow-[0_4px_18px_rgba(0,0,0,0.14)]"
           >
             <div>
               <p className="text-[11px] font-semibold text-[#222]">Click to Call</p>
@@ -50,7 +51,7 @@ export default function FloatingButtons() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-[0_4px_18px_rgba(0,0,0,0.14)]"
+            className="flex max-w-full items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-[0_4px_18px_rgba(0,0,0,0.14)]"
           >
             <p className="text-[11px] font-semibold text-[#222]">Chat with us</p>
             <button type="button" onClick={() => setShowWhatsAppLabel(false)} className="text-gray-400 hover:text-gray-700 transition-colors" aria-label="Close WhatsApp label">
