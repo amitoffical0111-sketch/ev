@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiSearch, FiShoppingCart, FiMenu, FiX, FiChevronDown, FiUser, FiCalendar } from 'react-icons/fi';
+import { FiSearch, FiShoppingCart, FiHeart, FiMenu, FiX, FiChevronDown, FiUser, FiCalendar } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { selectCartCount } from '@/store/slices/cartSlice';
@@ -47,6 +47,7 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const cartCount = useSelector(selectCartCount);
+  const wishlistCount = useSelector((state: RootState) => state.wishlist.items.length);
   const user = useSelector((state: RootState) => state.auth.user);
   const megaRef = useRef<HTMLDivElement>(null);
 
@@ -177,6 +178,19 @@ export default function Header() {
                 {mounted && cartCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-[#5FAF00] text-white text-[10px] rounded-full flex items-center justify-center font-bold px-1 leading-none">
                     {cartCount}
+                  </span>
+                )}
+              </Link>
+
+              <Link
+                href="/wishlist"
+                className="relative p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
+                aria-label="Wishlist"
+              >
+                <FiHeart size={19} />
+                {mounted && wishlistCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-[#5FAF00] text-white text-[10px] rounded-full flex items-center justify-center font-bold px-1 leading-none">
+                    {wishlistCount}
                   </span>
                 )}
               </Link>
