@@ -75,11 +75,11 @@ export default function Header() {
         }`}
       >
         <div className="container-custom">
-          <div className="relative grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center h-[68px] gap-4 min-w-0 md:flex md:justify-between">
+          <div className="relative flex items-center justify-between h-[68px] gap-4 min-w-0">
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden justify-self-start p-1.5 rounded-xl hover:bg-gray-100 transition-colors text-[#222] flex-shrink-0"
+              className="md:hidden p-1.5 rounded-xl hover:bg-gray-100 transition-colors text-[#222] flex-shrink-0"
               onClick={() => {
                 setActiveMobileMenu(null);
                 setMobileOpen(true);
@@ -90,7 +90,7 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="justify-self-center flex-shrink-0">
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex-shrink-0 md:left-auto md:static md:translate-x-0">
               <Image
                 src="/logo.png"
                 alt="Real E Bikes"
@@ -160,7 +160,7 @@ export default function Header() {
             </nav>
 
             {/* Right Actions */}
-            <div className="justify-self-end ml-auto flex min-w-0 items-center gap-0 md:ml-0 md:gap-0.5">
+            <div className="ml-auto flex min-w-0 items-center gap-0 md:ml-0 md:gap-0.5">
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
                 className="p-2 md:p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
