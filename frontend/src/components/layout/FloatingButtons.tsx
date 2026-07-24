@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaWhatsapp, FaPhone } from 'react-icons/fa';
 import { FiX } from 'react-icons/fi';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -7,15 +7,70 @@ import { AnimatePresence, motion } from 'framer-motion';
 export default function FloatingButtons() {
   const [showCallLabel, setShowCallLabel] = useState(true);
   const [showWhatsAppLabel, setShowWhatsAppLabel] = useState(true);
+  const [mobileBottom, setMobileBottom] = useState(24);
+  const mobileWidgetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+    const updateMobilePosition = () => {
+      if (!mediaQuery.matches || !mobileWidgetRef.current) {
+        setMobileBottom(24);
+        return;
+      }
+
+      const widget = mobileWidgetRef.current.getBoundingClientRect();
+      const heroTargets = Array.from(
+        document.querySelectorAll('.hero-swiper h1, .hero-swiper img, .hero-swiper [class*="grid-cols-2"], .hero-swiper a')
+      );
+      const visibleTargets = heroTargets
+        .map(target => target.getBoundingClientRect())
+        .filter(rect => rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.top < window.innerHeight);
+
+      const overlap = visibleTargets.find(rect => (
+        widget.left < rect.right && widget.right > rect.left && widget.top < rect.bottom && widget.bottom > rect.top
+      ));
+
+      if (!overlap) {
+        setMobileBottom(24);
+        return;
+      }
+
+      const safeBottom = 24;
+      const maximumBottom = Math.max(safeBottom, window.innerHeight - widget.height - safeBottom);
+      const requiredBottom = window.innerHeight - overlap.top + 12;
+      setMobileBottom(Math.min(maximumBottom, Math.max(safeBottom, requiredBottom)));
+    };
+
+    let frame = 0;
+    const scheduleUpdate = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateMobilePosition);
+    };
+
+    scheduleUpdate();
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    mediaQuery.addEventListener('change', scheduleUpdate);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('resize', scheduleUpdate);
+      window.removeEventListener('scroll', scheduleUpdate);
+      mediaQuery.removeEventListener('change', scheduleUpdate);
+    };
+  }, [showCallLabel, showWhatsAppLabel]);
 
   return (
     <>
       <div
+        ref={mobileWidgetRef}
         className="fixed z-40 flex md:hidden flex-col items-end gap-4"
         style={{
-          bottom: 'calc(24px + env(safe-area-inset-bottom))',
+          bottom: `calc(${mobileBottom}px + env(safe-area-inset-bottom))`,
           right: 'calc(16px + env(safe-area-inset-right))',
           maxWidth: 'calc(100vw - 32px)',
+          transition: 'bottom 220ms ease-out',
         }}
       >
         <div className="flex min-h-12 items-center justify-end gap-2.5">
