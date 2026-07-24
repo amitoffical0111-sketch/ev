@@ -157,7 +157,7 @@ export default function Footer() {
       <div className="border-t border-white/8">
         <div className="container-custom py-4 flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-[12px] text-gray-500">© {new Date().getFullYear()} Real E Bikes. All rights reserved.</p>
-          <div className="flex items-center gap-5 text-[12px] text-gray-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[12px] text-gray-500 md:flex-nowrap md:justify-start">
             <Link href="/privacy-policy" className="hover:text-[#5FAF00] transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-[#5FAF00] transition-colors">Terms of Service</Link>
             <Link href="/sitemap.xml" className="hover:text-[#5FAF00] transition-colors">Sitemap</Link>

@@ -78,7 +78,7 @@ export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.4 }}
-                      className="inline-flex max-w-full items-center justify-center gap-2 bg-[#5FAF00]/10 text-[#5FAF00] text-[11px] font-bold px-3.5 py-1.5 rounded-full mb-4 text-center uppercase tracking-widest border border-[#5FAF00]/20"
+                      className="inline-flex max-w-full flex-wrap items-center justify-center gap-2 bg-[#5FAF00]/10 text-[#5FAF00] text-[11px] font-bold px-3.5 py-1.5 rounded-full mb-4 text-center uppercase tracking-widest border border-[#5FAF00]/20 md:flex-nowrap"
                     >
                       <FaBolt size={9} /> 🍃 GREEN MOBILITY FOR EVERYONE
                     </motion.div>

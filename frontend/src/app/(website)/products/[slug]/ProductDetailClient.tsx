@@ -59,7 +59,7 @@ export default function ProductDetailClient({ product }: Props) {
           <span className="mx-2">/</span>
           <Link href="/products" className="hover:text-[#5FAF00]">Products</Link>
           <span className="mx-2">/</span>
-          <span className="text-[#111]">{product.name}</span>
+          <span className="text-[#111] break-words">{product.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -91,32 +91,32 @@ export default function ProductDetailClient({ product }: Props) {
                 {product.badge}
               </span>
             )}
-            <h1 className="text-3xl md:text-4xl font-black text-[#111] mb-2">{product.name}</h1>
+            <h1 className="text-3xl md:text-4xl font-black text-[#111] mb-2 break-words">{product.name}</h1>
             {product.tagline && <p className="text-[#5FAF00] font-medium mb-4">{product.tagline}</p>}
 
             <div className="grid grid-cols-2 gap-3 mb-6">
               {product.specifications?.topSpeed && (
-                <div className="flex items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
+                  <div className="flex min-w-0 items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
                   <FaTachometerAlt className="text-[#5FAF00]" size={18} />
-                  <div><div className="font-bold text-sm">{product.specifications.topSpeed}</div><div className="text-xs text-gray-500">Top Speed</div></div>
+                  <div className="min-w-0"><div className="font-bold text-sm break-words">{product.specifications.topSpeed}</div><div className="text-xs text-gray-500">Top Speed</div></div>
                 </div>
               )}
               {product.specifications?.range && (
-                <div className="flex items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
+                  <div className="flex min-w-0 items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
                   <FaBatteryFull className="text-[#5FAF00]" size={18} />
-                  <div><div className="font-bold text-sm">{product.specifications.range}</div><div className="text-xs text-gray-500">Range</div></div>
+                  <div className="min-w-0"><div className="font-bold text-sm break-words">{product.specifications.range}</div><div className="text-xs text-gray-500">Range</div></div>
                 </div>
               )}
               {product.specifications?.chargingTime && (
-                <div className="flex items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
+                  <div className="flex min-w-0 items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
                   <FaBolt className="text-[#5FAF00]" size={18} />
-                  <div><div className="font-bold text-sm">{product.specifications.chargingTime}</div><div className="text-xs text-gray-500">Charging Time</div></div>
+                  <div className="min-w-0"><div className="font-bold text-sm break-words">{product.specifications.chargingTime}</div><div className="text-xs text-gray-500">Charging Time</div></div>
                 </div>
               )}
               {product.specifications?.warranty && (
-                <div className="flex items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
+                  <div className="flex min-w-0 items-center gap-2 bg-[#f8fff0] rounded-xl p-3">
                   <FaShieldAlt className="text-[#5FAF00]" size={18} />
-                  <div><div className="font-bold text-sm">{product.specifications.warranty}</div><div className="text-xs text-gray-500">Warranty</div></div>
+                  <div className="min-w-0"><div className="font-bold text-sm break-words">{product.specifications.warranty}</div><div className="text-xs text-gray-500">Warranty</div></div>
                 </div>
               )}
             </div>
@@ -132,7 +132,7 @@ export default function ProductDetailClient({ product }: Props) {
             </div>
 
             <div className="flex flex-col gap-3 mb-6">
-              <div className="flex gap-3">
+                  <div className="flex flex-col gap-3 md:flex-row">
                 <button onClick={handleAddToCart}
                   className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all ${added ? 'bg-green-500 text-white' : 'btn-primary'}`}>
                   {added ? <><FiCheck /> Added!</> : <><FiShoppingCart /> Book Now</>}
@@ -141,7 +141,7 @@ export default function ProductDetailClient({ product }: Props) {
                   <FiCalendar /> Test Ride
                 </Link>
               </div>
-              <div className="flex gap-3">
+                <div className="flex flex-col gap-3 md:flex-row">
                 <button onClick={() => dispatch(toggleWishlist(product))}
                   className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 text-sm font-semibold transition-all ${inWishlist ? 'border-red-500 text-red-500 bg-red-50' : 'border-[#EAEAEA] hover:border-[#5FAF00]'}`}>
                   <FiHeart fill={inWishlist ? 'currentColor' : 'none'} size={16} />
@@ -174,9 +174,9 @@ export default function ProductDetailClient({ product }: Props) {
           {activeTab === 'specs' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {specItems.map((spec) => (
-                <div key={spec.label} className="flex items-center justify-between py-3 px-4 bg-[#f8fff0] rounded-xl">
-                  <span className="text-sm text-gray-500 font-medium">{spec.label}</span>
-                  <span className="text-sm font-bold text-[#111]">{spec.value}</span>
+                <div key={spec.label} className="flex min-w-0 items-start justify-between gap-3 py-3 px-4 bg-[#f8fff0] rounded-xl">
+                  <span className="min-w-0 text-sm text-gray-500 font-medium break-words">{spec.label}</span>
+                  <span className="min-w-0 text-right text-sm font-bold text-[#111] break-words">{spec.value}</span>
                 </div>
               ))}
             </div>
