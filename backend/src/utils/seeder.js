@@ -134,9 +134,9 @@ const seed = async () => {
 
     await HeroSlider.insertMany([
       {
-        title: 'RIDE REAL.\nRIDE ELECTRIC.', subtitle: 'NEW GENERATION ELECTRIC SCOOTERS',
-        description: 'High Performance. Zero Emission. Maximum Savings.',
-        badge: 'New Generation Electric Scooters',
+        title: 'RIDE REAL.\nRIDE ELECTRIC.', subtitle: 'Driving the Future of Green Mobility',
+        description: 'Driving the Future of Green Mobility',
+        badge: 'GREEN MOBILITY FOR EVERYONE',
         ctaText: 'Explore Products', ctaLink: '/products',
         secondaryCtaText: 'Book Test Ride', secondaryCtaLink: '/book-test-ride',
         stats: [

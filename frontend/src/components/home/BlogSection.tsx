@@ -2,11 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiArrowRight, FiCalendar, FiClock } from 'react-icons/fi';
 import { Blog } from '@/types';
+import { getImageUrl } from '@/lib/utils';
 
 const defaultBlogs: Blog[] = [
-  { _id: '1', title: 'Top 5 Reasons to Switch to Electric Scooters in 2025', slug: 'top-5-reasons-switch-electric-scooters-2025', excerpt: 'Discover why thousands of Indians are making the switch to electric scooters and how it can save you money.', content: '', tags: [], isPublished: true, isFeatured: false, views: 1240, createdAt: '2025-01-15', category: 'Tips & Guides', publishedAt: '2025-01-15' },
-  { _id: '2', title: 'How to Maximize Your EV Battery Life', slug: 'maximize-ev-battery-life', excerpt: 'Expert tips on charging habits, storage, and maintenance to extend your electric scooter battery life.', content: '', tags: [], isPublished: true, isFeatured: false, views: 980, createdAt: '2025-01-10', category: 'Maintenance', publishedAt: '2025-01-10' },
-  { _id: '3', title: 'Real E Bikes Wins Best EV Brand Award 2024', slug: 'real-e-bikes-best-ev-brand-award-2024', excerpt: 'We are proud to announce that Real E Bikes has been recognized as the Best EV Brand at the India EV Awards 2024.', content: '', tags: [], isPublished: true, isFeatured: true, views: 2100, createdAt: '2025-01-05', category: 'News', publishedAt: '2025-01-05' },
+  { _id: '1', title: 'Top 5 Reasons to Switch to Electric Scooters in 2025', slug: 'top-5-reasons-switch-electric-scooters-2025', excerpt: 'Discover why thousands of Indians are making the switch to electric scooters and how it can save you money.', content: '', image: '/newsb1.png', tags: [], isPublished: true, isFeatured: false, views: 1240, createdAt: '2025-01-15', category: 'Tips & Guides', publishedAt: '2025-01-15' },
+  { _id: '2', title: 'How to Maximize Your EV Battery Life', slug: 'maximize-ev-battery-life', excerpt: 'Expert tips on charging habits, storage, and maintenance to extend your electric scooter battery life.', content: '', image: '/newsb2.png', tags: [], isPublished: true, isFeatured: false, views: 980, createdAt: '2025-01-10', category: 'Maintenance', publishedAt: '2025-01-10' },
+  { _id: '3', title: 'Real E Bikes Wins Best EV Brand Award 2024', slug: 'real-e-bikes-best-ev-brand-award-2024', excerpt: 'We are proud to announce that Real E Bikes has been recognized as the Best EV Brand at the India EV Awards 2024.', content: '', image: '/newsb3.png', tags: [], isPublished: true, isFeatured: true, views: 2100, createdAt: '2025-01-05', category: 'News', publishedAt: '2025-01-05' },
 ];
 
 interface Props { blogs?: Blog[]; }
@@ -30,11 +31,11 @@ export default function BlogSection({ blogs = defaultBlogs }: Props) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {items.slice(0, 3).map((blog) => (
+          {items.slice(0, 3).map((blog, index) => (
             <article key={blog._id} className="card-premium overflow-hidden group">
               <div className="relative h-48 bg-gradient-to-br from-[#f0f9e8] to-[#e8f5d0] overflow-hidden">
-                {blog.image ? (
-                  <Image src={blog.image} alt={blog.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                {blog.image || index < 3 ? (
+                  <Image src={getImageUrl(blog.image || `/newsb${index + 1}.png`)} alt={blog.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-[#5FAF00] opacity-20 text-6xl font-black">EB</div>

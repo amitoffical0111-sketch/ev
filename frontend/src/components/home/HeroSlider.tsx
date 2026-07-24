@@ -15,10 +15,10 @@ const defaultSlides: HeroSlider[] = [
   {
     _id: '1',
     title: 'RIDE REAL.\nRIDE ELECTRIC.',
-    subtitle: 'NEW GENERATION ELECTRIC SCOOTERS',
-    description: 'High Performance. Zero Emission. Maximum Savings.',
+    subtitle: 'Driving the Future of Green Mobility',
+    description: 'Driving the Future of Green Mobility',
     image: '/bike1.png',
-    badge: 'New Generation Electric Scooters',
+    badge: 'GREEN MOBILITY FOR EVERYONE',
     ctaText: 'Explore Products',
     ctaLink: '/products',
     secondaryCtaText: 'Book Test Ride',
@@ -44,6 +44,9 @@ interface Props { slides?: HeroSlider[]; }
 export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
   const activeSlides = (slides.length > 0 ? slides : defaultSlides).map(s => ({
     ...s,
+    subtitle: s.subtitle === 'NEW GENERATION ELECTRIC SCOOTERS' ? 'Driving the Future of Green Mobility' : s.subtitle,
+    description: s.description === 'High Performance. Zero Emission. Maximum Savings.' ? 'Driving the Future of Green Mobility' : s.description,
+    badge: s.badge === 'New Generation Electric Scooters' ? 'GREEN MOBILITY FOR EVERYONE' : s.badge,
     image: s.image || '/bike1.png',
   }));
 
