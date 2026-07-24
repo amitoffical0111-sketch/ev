@@ -30,15 +30,21 @@ export default function BlogSection({ blogs = defaultBlogs }: Props) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {items.slice(0, 3).map((blog, index) => (
+          {items.slice(0, 3).map((blog) => (
             <article key={blog._id} className="card-premium overflow-hidden group flex flex-col">
               <div className="relative h-48 bg-gradient-to-br from-[#f0f9e8] to-[#e8f5d0] overflow-hidden flex-shrink-0">
-                <Image
-                  src={blog.image || `/newsb${index + 1}.png`}
-                  alt={blog.title}
-                  fill
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
-                />
+                {blog.image ? (
+                  <Image
+                    src={blog.image}
+                    alt={blog.title}
+                    fill
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-[#5FAF00] opacity-15 text-7xl font-black select-none">EB</div>
+                  </div>
+                )}
                 {blog.category && (
                   <span className="absolute top-3 left-3 bg-[#5FAF00] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
                     {blog.category}

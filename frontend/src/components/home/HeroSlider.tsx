@@ -15,10 +15,10 @@ const defaultSlides: HeroSlider[] = [
   {
     _id: '1',
     title: 'RIDE REAL.\nRIDE ELECTRIC.',
-    subtitle: 'Driving the Future of Green Mobility',
-    description: 'Driving the Future of Green Mobility',
+    subtitle: 'NEW GENERATION ELECTRIC SCOOTERS',
+    description: 'High Performance. Zero Emission. Maximum Savings.',
     image: '/bike1.png',
-    badge: '🍃 GREEN MOBILITY FOR EVERYONE',
+    badge: 'New Generation Electric Scooters',
     ctaText: 'Explore Products',
     ctaLink: '/products',
     secondaryCtaText: 'Book Test Ride',
@@ -78,9 +78,9 @@ export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.4 }}
-                      className="inline-flex max-w-full flex-wrap items-center justify-center gap-2 bg-[#5FAF00]/10 text-[#5FAF00] text-[11px] font-bold px-3.5 py-1.5 rounded-full mb-4 text-center uppercase tracking-widest border border-[#5FAF00]/20 md:flex-nowrap"
+                      className="inline-flex items-center gap-2 bg-[#5FAF00]/10 text-[#5FAF00] text-[11px] font-bold px-3.5 py-1.5 rounded-full mb-4 uppercase tracking-widest border border-[#5FAF00]/20"
                     >
-                      <FaBolt size={9} /> 🍃 GREEN MOBILITY FOR EVERYONE
+                      <FaBolt size={9} /> {slide.badge}
                     </motion.div>
                   )}
 
@@ -88,7 +88,7 @@ export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="max-w-full text-[2.6rem] md:text-[3.5rem] lg:text-[4.2rem] font-black leading-[1.05] tracking-tight mb-4"
+                    className="text-[2.6rem] md:text-[3.5rem] lg:text-[4.2rem] font-black leading-[1.05] tracking-tight mb-4"
                   >
                     {slide.title.split('\n').map((line, i) => (
                       <span key={i} className={`block ${i === 1 ? 'text-[#5FAF00]' : 'text-[#0d0d0d]'}`}>
@@ -103,7 +103,7 @@ export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
                     transition={{ delay: 0.45, duration: 0.5 }}
                     className="text-gray-500 text-base md:text-[17px] mb-7 leading-relaxed max-w-md mx-auto md:mx-0"
                   >
-                    Driving the Future of Green Mobility
+                    {slide.description}
                   </motion.p>
 
                   {/* Stats */}
@@ -112,12 +112,12 @@ export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.55, duration: 0.5 }}
-                      className="flex max-w-full flex-wrap justify-center md:justify-start gap-2.5 mb-8"
+                      className="flex flex-wrap justify-center md:justify-start gap-2.5 mb-8"
                     >
                       {slide.stats.map((stat) => (
                         <div
                           key={stat.label}
-                          className="flex max-w-full items-center gap-2.5 bg-white border border-gray-100 rounded-2xl px-3.5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
+                          className="flex items-center gap-2.5 bg-white border border-gray-100 rounded-2xl px-3.5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
                         >
                           <div className="w-7 h-7 bg-[#f0f9e8] rounded-lg flex items-center justify-center flex-shrink-0">
                             {iconMap[stat.icon] || <FaBolt className="text-[#5FAF00]" size={14} />}
@@ -136,7 +136,7 @@ export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.65, duration: 0.5 }}
-                    className="flex max-w-full flex-wrap justify-center md:justify-start gap-3"
+                    className="flex flex-wrap justify-center md:justify-start gap-3"
                   >
                     <Link href={slide.ctaLink || '/products'} className="btn-primary text-[14px]">
                       {slide.ctaText || 'Explore Products'} <FiArrowRight size={15} />
@@ -170,7 +170,7 @@ export default function HeroSliderComponent({ slides = defaultSlides }: Props) {
                         alt={slide.title}
                         width={620}
                         height={460}
-                        className="w-[85vw] max-w-full md:w-full md:max-w-none h-auto object-contain drop-shadow-2xl"
+                        className="w-[85vw] max-w-[320px] md:w-full md:max-w-none h-auto object-contain drop-shadow-2xl"
                         priority
                         style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.15))' }}
                       />

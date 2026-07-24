@@ -43,7 +43,7 @@ export default function BatterySection() {
           </div>
 
           <div className="relative flex items-center justify-center">
-            <div className="relative aspect-square h-auto w-full max-w-72 md:w-[380px] md:h-[380px] md:max-w-none md:aspect-auto">
+            <div className="relative w-72 h-72 md:w-[380px] md:h-[380px]">
               {/* Ping rings */}
               <div className="absolute inset-0 rounded-full border border-[#5FAF00]/15 animate-ping" style={{ animationDuration: '3.5s' }} />
               <div className="absolute inset-5 rounded-full border border-[#5FAF00]/20 animate-ping" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />

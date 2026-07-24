@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiSearch, FiShoppingCart, FiHeart, FiMenu, FiX, FiChevronDown, FiUser, FiCalendar } from 'react-icons/fi';
+import { FiSearch, FiShoppingCart, FiMenu, FiX, FiChevronDown, FiUser, FiCalendar } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { selectCartCount } from '@/store/slices/cartSlice';
@@ -43,11 +43,9 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeMega, setActiveMega] = useState<string | null>(null);
-  const [activeMobileMenu, setActiveMobileMenu] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const cartCount = useSelector(selectCartCount);
-  const wishlistCount = useSelector((state: RootState) => state.wishlist.items.length);
   const user = useSelector((state: RootState) => state.auth.user);
   const megaRef = useRef<HTMLDivElement>(null);
 
@@ -60,11 +58,6 @@ export default function Header() {
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileOpen]);
-
   return (
     <>
       <header
@@ -75,28 +68,25 @@ export default function Header() {
         }`}
       >
         <div className="container-custom">
-          <div className="relative flex items-center justify-between h-[68px] gap-4 min-w-0">
+          <div className="flex items-center justify-between h-[68px] gap-4">
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden p-1.5 rounded-xl hover:bg-gray-100 transition-colors text-[#222] flex-shrink-0"
-              onClick={() => {
-                setActiveMobileMenu(null);
-                setMobileOpen(true);
-              }}
+              className="md:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors text-[#222] flex-shrink-0"
+              onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
               <FiMenu size={22} />
             </button>
 
             {/* Logo */}
-            <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex-shrink-0 md:left-auto md:static md:translate-x-0">
+            <Link href="/" className="flex-shrink-0">
               <Image
                 src="/logo.png"
                 alt="Real E Bikes"
                 width={180}
                 height={56}
-                className="object-contain h-10 max-w-[130px] w-auto md:h-[52px] md:max-w-none"
+                className="object-contain h-[52px] w-auto"
                 priority
               />
             </Link>
@@ -160,10 +150,10 @@ export default function Header() {
             </nav>
 
             {/* Right Actions */}
-            <div className="ml-auto flex min-w-0 items-center gap-0 md:ml-0 md:gap-0.5">
+            <div className="flex items-center gap-0.5">
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2 md:p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
+                className="p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
                 aria-label="Search"
               >
                 <FiSearch size={19} />
@@ -171,26 +161,13 @@ export default function Header() {
 
               <Link
                 href="/cart"
-                className="relative p-2 md:p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
+                className="relative p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
                 aria-label="Cart"
               >
                 <FiShoppingCart size={19} />
                 {mounted && cartCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-[#5FAF00] text-white text-[10px] rounded-full flex items-center justify-center font-bold px-1 leading-none">
                     {cartCount}
-                  </span>
-                )}
-              </Link>
-
-              <Link
-                href="/wishlist"
-                className="relative p-2 md:p-2.5 rounded-xl hover:bg-gray-100 transition-colors text-[#444]"
-                aria-label="Wishlist"
-              >
-                <FiHeart size={19} />
-                {mounted && wishlistCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-[#5FAF00] text-white text-[10px] rounded-full flex items-center justify-center font-bold px-1 leading-none">
-                    {wishlistCount}
                   </span>
                 )}
               </Link>
@@ -269,7 +246,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'tween', duration: 0.28, ease: 'easeOut' }}
-              className="fixed left-0 top-0 h-[100vh] max-h-[100vh] w-[300px] bg-white z-50 md:hidden overflow-y-auto overscroll-contain shadow-2xl"
+              className="fixed left-0 top-0 h-full w-[300px] bg-white z-50 md:hidden overflow-y-auto shadow-2xl"
             >
               <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                 <Image src="/logo.png" alt="Real E Bikes" width={140} height={44} className="object-contain h-10 w-auto" />
@@ -285,59 +262,28 @@ export default function Header() {
               <nav className="p-4 space-y-0.5">
                 {navLinks.map((link) => (
                   <div key={link.label}>
-                    {link.mega ? (
-                      <button
-                        type="button"
-                        aria-expanded={activeMobileMenu === link.label}
-                        onClick={() => setActiveMobileMenu((current) => current === link.label ? null : link.label)}
-                        className={`flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-[14px] transition-colors ${
-                          pathname === link.href
-                            ? 'bg-[#f0f9e8] text-[#5FAF00]'
-                            : 'text-[#333] hover:bg-gray-50'
-                        }`}
-                      >
-                        {link.label}
-                        <FiChevronDown
-                          size={16}
-                          className={`transition-transform duration-300 ${activeMobileMenu === link.label ? 'rotate-180' : ''}`}
-                        />
-                      </button>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className={`flex items-center px-4 py-3 rounded-xl font-semibold text-[14px] transition-colors ${
-                          pathname === link.href
-                            ? 'bg-[#f0f9e8] text-[#5FAF00]'
-                            : 'text-[#333] hover:bg-gray-50'
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    )}
+                    <Link
+                      href={link.href}
+                      className={`flex items-center px-4 py-3 rounded-xl font-semibold text-[14px] transition-colors ${
+                        pathname === link.href
+                          ? 'bg-[#f0f9e8] text-[#5FAF00]'
+                          : 'text-[#333] hover:bg-gray-50'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
                     {link.mega && (
-                      <AnimatePresence initial={false}>
-                        {activeMobileMenu === link.label && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.28, ease: 'easeInOut' }}
-                            className="ml-4 overflow-hidden"
+                      <div className="ml-4 mt-0.5 mb-1 space-y-0.5">
+                        {link.mega.map((item) => (
+                          <Link
+                            key={item.label}
+                            href={item.href}
+                            className="block px-4 py-2 text-[13px] text-gray-500 rounded-lg hover:bg-[#f0f9e8] hover:text-[#5FAF00] transition-colors"
                           >
-                            <div className="mt-0.5 mb-1 space-y-0.5">
-                              {link.mega.map((item) => (
-                                <Link
-                                  key={item.label}
-                                  href={item.href}
-                                  className="block px-4 py-2 text-[13px] text-gray-500 rounded-lg hover:bg-[#f0f9e8] hover:text-[#5FAF00] transition-colors"
-                                >
-                                  {item.label}
-                                </Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
                     )}
                   </div>
                 ))}

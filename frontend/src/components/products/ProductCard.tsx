@@ -89,21 +89,21 @@ export default function ProductCard({ product, index = 0 }: Props) {
       </div>
 
       {/* Content */}
-      <div className="p-4 flex min-w-0 flex-col flex-1">
-        <h3 className="min-w-0 font-bold text-[#111] text-[15px] mb-2.5 leading-snug group-hover:text-[#5FAF00] transition-colors line-clamp-2 break-words">
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="font-bold text-[#111] text-[15px] mb-2.5 leading-snug group-hover:text-[#5FAF00] transition-colors line-clamp-2">
           {product.name}
         </h3>
 
         {/* Specs */}
         {(product.specifications?.topSpeed || product.specifications?.range) && (
-          <div className="flex min-w-0 flex-wrap items-center gap-3 mb-3 md:flex-nowrap">
+          <div className="flex items-center gap-3 mb-3">
             {product.specifications?.topSpeed && (
               <div className="flex items-center gap-1.5 text-[11px] text-gray-500">
                 <div className="w-5 h-5 bg-[#f0f9e8] rounded-md flex items-center justify-center flex-shrink-0">
                   <FaTachometerAlt className="text-[#5FAF00]" size={10} />
                 </div>
                 <div>
-                  <div className="font-bold text-[#111] text-[12px] leading-tight break-words">{product.specifications.topSpeed}</div>
+                  <div className="font-bold text-[#111] text-[12px] leading-tight">{product.specifications.topSpeed}</div>
                   <div className="leading-tight">Top Speed</div>
                 </div>
               </div>
@@ -114,7 +114,7 @@ export default function ProductCard({ product, index = 0 }: Props) {
                   <FaBatteryFull className="text-[#5FAF00]" size={10} />
                 </div>
                 <div>
-                  <div className="font-bold text-[#111] text-[12px] leading-tight break-words">{product.specifications.range}</div>
+                  <div className="font-bold text-[#111] text-[12px] leading-tight">{product.specifications.range}</div>
                   <div className="leading-tight">Range</div>
                 </div>
               </div>
@@ -123,25 +123,25 @@ export default function ProductCard({ product, index = 0 }: Props) {
         )}
 
         {/* Price */}
-        <div className="flex min-w-0 flex-wrap items-baseline gap-2 mb-1.5 mt-auto md:flex-nowrap">
-          <span className="min-w-0 break-words text-[22px] font-black text-[#5FAF00] leading-none">{formatPrice(product.price)}</span>
+        <div className="flex items-baseline gap-2 mb-1.5 mt-auto">
+          <span className="text-[22px] font-black text-[#5FAF00] leading-none">{formatPrice(product.price)}</span>
           {product.discountPrice && (
-            <span className="min-w-0 break-words text-[13px] text-gray-400 line-through font-medium">{formatPrice(product.discountPrice)}</span>
+            <span className="text-[13px] text-gray-400 line-through font-medium">{formatPrice(product.discountPrice)}</span>
           )}
         </div>
 
         {product.emiStartsFrom && (
-          <p className="min-w-0 text-[11px] text-gray-400 mb-3 flex flex-wrap items-center gap-1">
+          <p className="text-[11px] text-gray-400 mb-3 flex items-center gap-1">
             <FiZap size={10} className="text-[#5FAF00]" />
             EMI from <span className="font-semibold text-gray-600">₹{product.emiStartsFrom.toLocaleString('en-IN')}/mo</span>
           </p>
         )}
 
         {/* Actions */}
-        <div className="flex min-w-0 gap-2 mt-auto pt-1">
+        <div className="flex gap-2 mt-auto pt-1">
           <Link
             href={`/products/${product.slug}`}
-            className="min-w-0 flex-1 flex items-center justify-center gap-1.5 py-2.5 border-[1.5px] border-gray-200 rounded-xl text-[13px] font-semibold text-[#333] hover:border-[#5FAF00] hover:text-[#5FAF00] hover:bg-[#f0f9e8]/50 transition-all"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 border-[1.5px] border-gray-200 rounded-xl text-[13px] font-semibold text-[#333] hover:border-[#5FAF00] hover:text-[#5FAF00] hover:bg-[#f0f9e8]/50 transition-all"
           >
             View Details <FiArrowRight size={13} />
           </Link>
