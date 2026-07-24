@@ -11,8 +11,8 @@ export default function TopBar() {
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="text-white/80">Support:</span>
-            <a href="tel:+919953667830" className="font-bold hover:text-white/80 transition-colors">
-              +91 99536 67830
+            <a href="tel:+91134 39514" className="font-bold hover:text-white/80 transition-colors">
+              +91 91134 39514
             </a>
           </div>
           <div className="flex items-center gap-3 border-l border-white/25 pl-4">

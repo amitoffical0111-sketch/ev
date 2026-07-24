@@ -134,7 +134,7 @@ export default function Footer() {
                 href="tel:+919953667830"
                 className="flex items-center gap-2.5 text-[13px] text-gray-400 hover:text-[#5FAF00] transition-colors"
               >
-                <MdPhone className="text-[#5FAF00] flex-shrink-0" size={15} /> +91 99536 67830
+                <MdPhone className="text-[#5FAF00] flex-shrink-0" size={15} /> +91 91134 39514
               </a>
               <a
                 href="mailto:info@realebikes.com"
