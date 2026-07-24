@@ -43,6 +43,7 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeMega, setActiveMega] = useState<string | null>(null);
+  const [activeMobileMenu, setActiveMobileMenu] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const cartCount = useSelector(selectCartCount);
@@ -57,6 +58,11 @@ export default function Header() {
   }, []);
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
   return (
     <>
@@ -73,7 +79,10 @@ export default function Header() {
             {/* Mobile hamburger */}
             <button
               className="md:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors text-[#222] flex-shrink-0"
-              onClick={() => setMobileOpen(true)}
+              onClick={() => {
+                setActiveMobileMenu(null);
+                setMobileOpen(true);
+              }}
               aria-label="Open menu"
             >
               <FiMenu size={22} />
@@ -246,7 +255,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'tween', duration: 0.28, ease: 'easeOut' }}
-              className="fixed left-0 top-0 h-full w-[300px] bg-white z-50 md:hidden overflow-y-auto shadow-2xl"
+              className="fixed left-0 top-0 h-[100vh] max-h-[100vh] w-[300px] bg-white z-50 md:hidden overflow-y-auto overscroll-contain shadow-2xl"
             >
               <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                 <Image src="/logo.png" alt="Real E Bikes" width={140} height={44} className="object-contain h-10 w-auto" />
@@ -262,28 +271,59 @@ export default function Header() {
               <nav className="p-4 space-y-0.5">
                 {navLinks.map((link) => (
                   <div key={link.label}>
-                    <Link
-                      href={link.href}
-                      className={`flex items-center px-4 py-3 rounded-xl font-semibold text-[14px] transition-colors ${
-                        pathname === link.href
-                          ? 'bg-[#f0f9e8] text-[#5FAF00]'
-                          : 'text-[#333] hover:bg-gray-50'
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
+                    {link.mega ? (
+                      <button
+                        type="button"
+                        aria-expanded={activeMobileMenu === link.label}
+                        onClick={() => setActiveMobileMenu((current) => current === link.label ? null : link.label)}
+                        className={`flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-[14px] transition-colors ${
+                          pathname === link.href
+                            ? 'bg-[#f0f9e8] text-[#5FAF00]'
+                            : 'text-[#333] hover:bg-gray-50'
+                        }`}
+                      >
+                        {link.label}
+                        <FiChevronDown
+                          size={16}
+                          className={`transition-transform duration-300 ${activeMobileMenu === link.label ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className={`flex items-center px-4 py-3 rounded-xl font-semibold text-[14px] transition-colors ${
+                          pathname === link.href
+                            ? 'bg-[#f0f9e8] text-[#5FAF00]'
+                            : 'text-[#333] hover:bg-gray-50'
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                     {link.mega && (
-                      <div className="ml-4 mt-0.5 mb-1 space-y-0.5">
-                        {link.mega.map((item) => (
-                          <Link
-                            key={item.label}
-                            href={item.href}
-                            className="block px-4 py-2 text-[13px] text-gray-500 rounded-lg hover:bg-[#f0f9e8] hover:text-[#5FAF00] transition-colors"
+                      <AnimatePresence initial={false}>
+                        {activeMobileMenu === link.label && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.28, ease: 'easeInOut' }}
+                            className="ml-4 overflow-hidden"
                           >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
+                            <div className="mt-0.5 mb-1 space-y-0.5">
+                              {link.mega.map((item) => (
+                                <Link
+                                  key={item.label}
+                                  href={item.href}
+                                  className="block px-4 py-2 text-[13px] text-gray-500 rounded-lg hover:bg-[#f0f9e8] hover:text-[#5FAF00] transition-colors"
+                                >
+                                  {item.label}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     )}
                   </div>
                 ))}
